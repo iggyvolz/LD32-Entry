@@ -20,7 +20,7 @@ function love.draw()
   elseif self.time < 8 then
     love.graphics.draw(assets.love,135,60)
   elseif self.time < 12 then
-    love.graphics.draw(assets.eilogo)
+    love.graphics.draw(assets.eilogo,-10,175,0,0.25,0.25)
   end
 end
 function love.mousepressed(x, y, button)
