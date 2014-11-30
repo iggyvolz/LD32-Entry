@@ -5,6 +5,6 @@ end
 function ldconfig()
   return {
     ["volume"]=1.0,
-    ["skipsplashes"]=true
+    ["skipsplashes"]=false
   }
 end
