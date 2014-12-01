@@ -16,7 +16,7 @@ end
 function love.draw()
   self=splashes
   if self.time < 4 then
-    love.graphics.draw(assets.lua,100,0,0,4.75,4.75)
+    love.graphics.draw(assets.lua,100,0,0,0.27,0.27)
   elseif self.time < 8 then
     love.graphics.draw(assets.love,135,60)
   elseif self.time < 12 then
