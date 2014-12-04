@@ -1,5 +1,5 @@
 local splashes={
-  ["time"]=0 -- Time since began
+  ["time"]=7 -- Time since began
 }
 splashes.__index=splashes
 function love.load(t)
@@ -9,8 +9,8 @@ function love.update(dt)
   self=splashes
   self.time=self.time+dt
   if self.time > 12 then require "game" end
-  if self.time > 8 and self.time < 9 and not assets.eijingle:isPlaying() then
-    assert(assets.eijingle):play()
+  if self.time > 8 and self.time-dt<8 then -- First time beyond 8.  Would love to use assets.eijingle:isPlaying() here but incompatible with 0.9+
+    assets.eijingle:play()
   end
 end
 function love.draw()
