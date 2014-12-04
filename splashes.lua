@@ -1,5 +1,5 @@
 local splashes={
-  ["time"]=7 -- Time since began
+  ["time"]=0 -- Time since began
 }
 splashes.__index=splashes
 function love.load(t)
