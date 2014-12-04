@@ -10,7 +10,7 @@ function love.update(dt)
   self.time=self.time+dt
   if self.time > 12 then require "game" end
   if self.time > 8 and self.time < 9 and not assets.eijingle:isPlaying() then
-    assets.eijingle:play()
+    assert(assets.eijingle):play()
   end
 end
 function love.draw()
