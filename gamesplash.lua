@@ -1,7 +1,7 @@
 local gamesplash={
 }
 gamesplash.__index=gamesplash
-function go()
+function gamesplash.go()
   assets.splashmusic:play()
   function love.load(t)
   end
@@ -21,4 +21,4 @@ function go()
 
   end
 end
-return game
+return gamesplash
