@@ -1,5 +1,7 @@
-assets={}
-assets.__index=assets
+assets=nil -- OCD :P
+splashes=require "splashes"
+gamesplash=require "gamesplash"
+game=require "game"
 --[[
   SETTINGS:
     * boolean skipsplashes - Skips splashes if true
@@ -21,7 +23,7 @@ function string:split(sep)
   return fields
 end
 function love.load(t)
-  if love.filesystem.getDirectoryItems then require "assets" else require "assets-websafe" end
+  if love.filesystem.getDirectoryItems then assets=require "assets" else assets=require "assets-websafe" end
   require "config"
   settings=ldconfig()
   for i,v in ipairs(t) do
@@ -47,7 +49,6 @@ function love.load(t)
   if settings.volume then
     love.audio.setVolume(settings.volume)
   end
-  assets:setup("assets")
   if settings.skipsplashes then
     game=require "game"
   else
