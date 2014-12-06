@@ -32,7 +32,7 @@ function string:split(sep)
   return fields
 end
 function love.load(t)
-  if love.filesystem.getDirectoryItems then assets=require "assets" else assets=require "assets-websafe" end
+  assets=require "assets"
   require "config"
   settings=ldconfig()
   for i,v in ipairs(t) do
