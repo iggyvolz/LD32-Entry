@@ -4,6 +4,13 @@ assets.__index=assets
   SETTINGS:
     * boolean skipsplashes - Skips splashes if true
     * number volume - Sets volume; see https://www.love2d.org/wiki/love.audio.setVolume
+  Specify like: love . setting1=setting2 setting3[=true]
+  Not setting at runtime produces the default setting in config.lua
+  Specifying without an equals sign makes the setting equal to "true".
+  Please set a default value in config.lua if you intend to add a setting.
+  If you wish to make changes to the configuration settings without influencing the server default, you may wish to git update-index --assume-unchanged config.lua.
+  Please undo this with git update-index --no-assume-unchanged config.lua if you wish to commit changes on this file to the repo - remember to stash your local changes first.
+  If config.lua is updated and you are assuming it unchanged, you may want to do: git update-index --no-assume-unchanged config.lua && git stash && git pull origin master && git stash apply && git update-index --assume-unchanged config.lua.
 ]]
 settings={
 }
@@ -13,41 +20,8 @@ function string:split(sep)
   self:gsub(pattern, function(c) fields[#fields+1] = c end)
   return fields
 end
-function assets:setup(folder)
-  local lfs = love.filesystem
-  local filesTable = lfs.getDirectoryItems(folder)
-  for i,v in ipairs(filesTable) do
-    local file = folder.."/"..v
-    if lfs.isFile(file) then
-      self:addFile(file)
-    elseif lfs.isDirectory(file) then
-      self:setup(file)
-    end
-  end
-  _G.filename=nil
-end
-function assets:addFile(filename)
-  _G.filename=filename
-  file=filename:split("/")
-  table.remove(file,1)
-  if #file == 1 then
-    self[file[1]:split(".")[1]]=assert(self["get"..filename:split(".")[2]:sub(1,1):upper()..filename:split(".")[2]:sub(2)],"ERROR: invalid handle get"..filename:split(".")[2]:sub(1,1):upper()..filename:split(".")[2]:sub(2))()
-  elseif #file == 2 then
-    if not self[file[1]] then
-      self[file[1]]={}
-    end
-    self[file[1]][file[2]:split(".")[1]]=assert(self["get"..filename:split(".")[2]:sub(1,1):upper()..filename:split(".")[2]:sub(2)],"ERROR: invalid handle get"..filename:split(".")[2]:sub(1,1):upper()..filename:split(".")[2]:sub(2))()
-  else
-    assert(false,"Maximum depth reached on "..filename.." (depth of "..#file..")")
-  end
-end
-function assets:getPng() -- love.graphics.draw(assets.IMG, x-position, y-position, rotation-in-radians, scale-x, scale-y, offset-x, offset-y, shearing-x, shearing-y)
-  return love.graphics.newImage(_G.filename)
-end
-function assets:getMp3() -- assets.SOUND:play()
-  return love.audio.newSource(_G.filename,"static")
-end
 function love.load(t)
+  if love.filesystem.getDirectoryItems then require "assets" else require "assets-websafe" end
   require "config"
   settings=ldconfig()
   for i,v in ipairs(t) do
