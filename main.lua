@@ -50,8 +50,8 @@ function love.load(t)
     love.audio.setVolume(settings.volume)
   end
   if settings.skipsplashes then
-    game=require "game"
+    game.go()
   else
-    splashes=require "splashes"
+    splashes.go()
   end
 end
