@@ -2,6 +2,15 @@ assets=nil -- OCD :P
 splashes=require "splashes"
 gamesplash=require "gamesplash"
 game=require "game"
+credits=require "credits"
+_font = {
+
+}
+function font(size)
+  if _font[size] then return _font[size] end
+  _font[size] = love.graphics.newFont(size)
+  return _font[size]
+end
 --[[
   SETTINGS:
     * boolean skipsplashes - Skips splashes if true
