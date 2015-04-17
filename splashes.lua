@@ -1,11 +1,10 @@
+local assets=require "assets"
+local gamesplash=require "gamesplash"
 local self={
   ["time"]=0 -- Time since began
 }
 self.__index=self
 function self.go()
-  function love.load(t)
-
-  end
   function love.update(dt)
     self.time=self.time+dt
     if self.time > 12 then gamesplash.go() end
@@ -21,17 +20,6 @@ function self.go()
     elseif self.time < 12 then
       love.graphics.draw(assets.eilogo,-10,175,0,0.25,0.25)
     end
-  end
-  function love.mousepressed(x, y, button)
-  end
-  function love.mousereleased(x, y, button)
-
-  end
-  function love.focus(f)
-
-  end
-  function love.quit()
-
   end
 end
 return self

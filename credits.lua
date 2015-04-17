@@ -1,3 +1,5 @@
+local font=require "font"
+local gamesplash=require "gamesplash"
 local self={
   ["btns"]={
     ["back"]={
@@ -11,10 +13,6 @@ local self={
 }
 self.__index=self
 function self.go()
-  function love.load(t)
-  end
-  function love.update(dt)
-  end
   function love.draw()
     love.graphics.setBackgroundColor(255,255,255)
     love.graphics.setColor(0, 0, 0)
@@ -24,19 +22,10 @@ function self.go()
     love.graphics.setFont(font(72))
     love.graphics.print("Back",self.btns.back.x,self.btns.back.y-8)
   end
-  function love.mousepressed(x, y, button)
+  function love.mousepressed(x, y)
     if x>self.btns.back.x and x<self.btns.back.x+self.btns.back.width and y>self.btns.back.y and y<self.btns.back.y+self.btns.back.height then
       gamesplash.go()
     end
-  end
-  function love.mousereleased(x, y, button)
-
-  end
-  function love.focus(f)
-
-  end
-  function love.quit()
-
   end
 end
 return self

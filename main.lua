@@ -1,16 +1,5 @@
-assets=nil -- OCD :P
-splashes=require "splashes"
-gamesplash=require "gamesplash"
-game=require "game"
-credits=require "credits"
-_font = {
-
-}
-function font(size)
-  if _font[size] then return _font[size] end
-  _font[size] = love.graphics.newFont(size)
-  return _font[size]
-end
+local splashes=require "splashes"
+local gamesplash=require "gamesplash"
 --[[
   SETTINGS:
     * boolean skipsplashes - Skips splashes if true
@@ -23,29 +12,26 @@ end
   Please undo this with git update-index --no-assume-unchanged config.lua if you wish to commit changes on this file to the repo - remember to stash your local changes first.
   If config.lua is updated and you are assuming it unchanged, you may want to do: git update-index --no-assume-unchanged config.lua && git stash && git pull origin master && git stash apply && git update-index --assume-unchanged config.lua.
 ]]
-settings={
-}
-function string:split(sep)
-  local sep, fields = sep or ":", {}
+local settings=require "config"()
+local function split(s,sep)
+  if not sep then sep=":" end
+  local fields={}
   local pattern = string.format("([^%s]+)", sep)
-  self:gsub(pattern, function(c) fields[#fields+1] = c end)
+  s:gsub(pattern, function(c) fields[#fields+1] = c end)
   return fields
 end
 function love.load(t)
-  assets=require "assets"
-  require "config"
-  settings=ldconfig()
   for i,v in ipairs(t) do
     if i ~= 1 then
       if v:match("=") then
-        key,value=unpack(v:split("="))
+        local key,value=table.unpack(split(v,"="))
         if value == "true" then
           settings[key]=true
         elseif value == "false" then
           settings[key]=false
         elseif value == "nil" then
           settings[key]=nil
-        elseif tonumber(volume) ~= nil then
+        elseif tonumber(settings.volume) ~= nil then
           settings[key]=tonumber(value)
         else
           settings[key]=value

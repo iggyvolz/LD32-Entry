@@ -1,3 +1,4 @@
+local assets,font,credits,game=require "assets",require "font",require "credits",require "game"
 local self={
   ["btns"]={
     ["play"]={
@@ -17,10 +18,6 @@ local self={
 self.__index=self
 function self.go()
   assets.splashmusic:play()
-  function love.load(t)
-  end
-  function love.update(dt)
-  end
   function love.draw()
     love.graphics.setBackgroundColor(255,255,255)
     love.graphics.setColor(0, 0, 0)
@@ -31,7 +28,7 @@ function self.go()
     love.graphics.rectangle("line",self.btns.play.x,self.btns.play.y,self.btns.play.width,self.btns.play.height)
     love.graphics.print("Play",self.btns.play.x,self.btns.play.y-8)
   end
-  function love.mousepressed(x, y, button)
+  function love.mousepressed(x, y)
     if x>self.btns.credits.x and x<self.btns.credits.x+self.btns.credits.width and y>self.btns.credits.y and y<self.btns.credits.y+self.btns.credits.height then
       credits.go()
     end
@@ -39,15 +36,6 @@ function self.go()
       assets.splashmusic:stop()
       game.go()
     end
-  end
-  function love.mousereleased(x, y, button)
-
-  end
-  function love.focus(f)
-
-  end
-  function love.quit()
-
   end
 end
 return self
